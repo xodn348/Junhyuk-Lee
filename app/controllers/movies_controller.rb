@@ -1,5 +1,22 @@
 class MoviesController < ApplicationController
-  before_action :set_movie, only: %i[ show edit update destroy ]
+  helper_method :sort_column, :sort_direction
+
+  # Determine the movie attributes
+  def index
+    @movies = Movie.order("#{sort_column} #{sort_direction}")
+  end
+
+  private
+
+  # Determine the column to sort by, defaulting to 'title'
+  def sort_column
+    %w[title rating release_date].include?(params[:sort]) ? params[:sort] : 'title'
+  end
+
+  # Determine the direction to sort by, defaulting to 'asc'
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
+  end
 
   # GET /movies or /movies.json
   def index
