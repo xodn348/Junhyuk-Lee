@@ -1,4 +1,4 @@
-module ApplicationHelper
+module MoviesHelper
     # Toggle the sort direction for the column
     def toggle_direction(column)
       if params[:sort] == column && params[:direction] == 'asc'
